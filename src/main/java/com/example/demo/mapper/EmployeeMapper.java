@@ -23,11 +23,11 @@ public class EmployeeMapper {
 
     public Employee mapToEmployee(EmployeeRequest employeeRequest) {
         Employee employee = new Employee();
-        employee.setFirstname(employeeRequest.firstName());
-        employee.setLastname(employeeRequest.lastName());
-        employee.setEmail(employeeRequest.email());
-        employee.setPhoneNumber(employeeRequest.phoneNumber());
-        employee.setImage(employeeRequest.image());
+        employee.setFirstNameEmployee(employeeRequest.firstName());
+        employee.setLastNameEmployee(employeeRequest.lastName());
+        employee.setEmailEmployee(employeeRequest.email());
+        employee.setPhoneNumberEmployee(employeeRequest.phoneNumber());
+        employee.setImageEmployee(employeeRequest.image());
         employee.setAddress(mapToAddress(employeeRequest.addressRequest()));
         return employee;
     }
@@ -36,18 +36,20 @@ public class EmployeeMapper {
         if (address != null) {
             return new AddressResponse(
                 address.getCity(),
-                address.getStreet()
+                address.getStreet(),
+                address.getHouseNumber(),
+                address.getApartment()
             );
         } else return null;
     }
 
     public EmployeeResponse mapToResponse(Employee employee) {
         return new EmployeeResponse(
-            employee.getFirstname(),
-            employee.getLastname(),
-            employee.getEmail(),
-            employee.getPhoneNumber(),
-            employee.getImage(),
+            employee.getFirstNameEmployee(),
+            employee.getLastNameEmployee(),
+            employee.getEmailEmployee(),
+            employee.getPhoneNumberEmployee(),
+            employee.getImageEmployee(),
             mapToAddressResponse(employee.getAddress())
         );
     }

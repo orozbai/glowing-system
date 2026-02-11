@@ -1,96 +1,86 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstname;
-    private String lastname;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_employee", nullable = false)
+    private UUID idEmployee;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-    @Column(unique = true, nullable = true)
-    private String phoneNumber;
-    private String image;
+    @Column(name = "first_name_employee", nullable = false, length = 100)
+    private String firstNameEmployee;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @Column(name = "last_name_employee", nullable = false, length = 100)
+    private String lastNameEmployee;
+
+    @Column(name = "phone_number_employee", nullable = false, length = 15)
+    private String phoneNumberEmployee;
+
+    @Column(name = "email", nullable = false, unique = true, length = 255)
+    private String emailEmployee;
+
+    @Column(name = "image", columnDefinition = "TEXT")
+    private String imageEmployee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
     private Address address;
 
-
-    public Employee() {}
-    public Employee(Long id, String firstname, String lastname, String email, String phoneNumber, String image,
-            Address address) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.image = image;
-        this.address = address;
+    public Employee() {
     }
 
-
-    public Long getId() {
-        return id;
+    public UUID getIdEmployee() {
+        return idEmployee;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdEmployee(UUID idEmployee) {
+        this.idEmployee = idEmployee;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstNameEmployee() {
+        return firstNameEmployee;
     }
 
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstNameEmployee(String firstNameEmployee) {
+        this.firstNameEmployee = firstNameEmployee;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastNameEmployee() {
+        return lastNameEmployee;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastNameEmployee(String lastNameEmployee) {
+        this.lastNameEmployee = lastNameEmployee;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhoneNumberEmployee() {
+        return phoneNumberEmployee;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhoneNumberEmployee(String phoneNumberEmployee) {
+        this.phoneNumberEmployee = phoneNumberEmployee;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getEmailEmployee() {
+        return emailEmployee;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setEmailEmployee(String emailEmployee) {
+        this.emailEmployee = emailEmployee;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageEmployee() {
+        return imageEmployee;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageEmployee(String imageEmployee) {
+        this.imageEmployee = imageEmployee;
     }
 
     public Address getAddress() {
@@ -101,4 +91,17 @@ public class Employee {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "idEmployee=" + idEmployee +
+                ", firstNameEmployee='" + firstNameEmployee + '\'' +
+                ", lastNameEmployee='" + lastNameEmployee + '\'' +
+                ", phoneNumberEmployee='" + phoneNumberEmployee + '\'' +
+                ", emailEmployee='" + emailEmployee + '\'' +
+                ", imageEmployee='" + imageEmployee + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
+
