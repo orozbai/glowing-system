@@ -7,12 +7,42 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String firstname;
+    private String lastname;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+    @Column(unique = true, nullable = true)
+    private String phoneNumber;
+    private String image;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
+
+    public Employee() {}
+    public Employee(Long id, String firstname, String lastname, String email, String phoneNumber, String image,
+            Address address) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.address = address;
+    }
+
 
     public Long getId() {
         return id;
@@ -25,6 +55,7 @@ public class Employee {
     public String getFirstname() {
         return firstname;
     }
+
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -70,22 +101,4 @@ public class Employee {
         this.address = address;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String firstname;
-
-    private String lastname;
-
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    private String phoneNumber;
-
-    private String image;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
 }
