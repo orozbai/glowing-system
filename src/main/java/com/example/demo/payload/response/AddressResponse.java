@@ -5,4 +5,5 @@ public record AddressResponse(
         String street
         // add other data
 ) {
+
 }
