@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service("list")
 public class EmployeeRepositorySaveToList implements EmployeeService {
@@ -23,7 +24,13 @@ public class EmployeeRepositorySaveToList implements EmployeeService {
 
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
-        return null;
+
+        Employee employee = employeeMapper.mapToEmployee(employeeRequest);
+        employee.setIdEmployee(UUID.randomUUID());
+
+        employeeList.add(employee);
+
+        return employeeMapper.mapToResponse(employee);
     }
 
     @Override
