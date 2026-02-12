@@ -18,6 +18,8 @@ public class EmployeeMapper {
         Address address = new Address();
         address.setCity(addressRequest.city());
         address.setStreet(addressRequest.street());
+        address.setApartment(addressRequest.apartment());
+        address.setHouseNumber(addressRequest.houseNumber());
         return address;
     }
 

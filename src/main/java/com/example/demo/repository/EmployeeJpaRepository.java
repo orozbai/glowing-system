@@ -2,21 +2,22 @@ package com.example.demo.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.entity.Employee;
 
-public interface EmployeeJpaRepository extends JpaRepository<Employee, Long> {
-    Optional<Employee> findByEmail(String email);
-    Optional<Employee> findByPhoneNumber(String phoneNumber);
+public interface EmployeeJpaRepository extends JpaRepository<Employee, UUID> {
+    Optional<Employee> findByEmailEmployee(String email);
+    Optional<Employee> findByPhoneNumberEmployee(String phoneNumber);
 
-    Optional<Employee> findByFirstnameAndLastname(String firstname, String lastname);
+    Optional<Employee> findByFirstNameEmployeeAndLastNameEmployee(String firstname, String lastname);
 
-    boolean existsByEmail(String email);
-    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByEmailEmployee(String email);
+    boolean existsByPhoneNumberEmployee(String phoneNumber);
 
-    void deleteByEmail(String email);
+    void deleteByEmailEmployee(String email);
 
-    List<Employee> findAllByFirstname(String firstname);
+    List<Employee> findAllByFirstNameEmployee(String firstname);
 }
