@@ -25,6 +25,18 @@ public class EmployeeRepositorySaveToList implements EmployeeService {
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
 
+        for (Employee emp : employeeList) {
+            if (emp.getEmailEmployee().equals(employeeRequest.email())) {
+                throw new RuntimeException("Employee with email " + employeeRequest.email() + " already exists");
+            }
+        }
+
+        for (Employee emp : employeeList) {
+            if (emp.getPhoneNumberEmployee().equals(employeeRequest.phoneNumber())) {
+                throw new RuntimeException("Employee with phone number " + employeeRequest.phoneNumber() + " already exists");
+            }
+        }
+
         Employee employee = employeeMapper.mapToEmployee(employeeRequest);
         employee.setIdEmployee(UUID.randomUUID());
 
