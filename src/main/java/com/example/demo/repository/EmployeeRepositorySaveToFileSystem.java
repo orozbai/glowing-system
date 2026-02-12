@@ -7,27 +7,25 @@ import com.example.demo.payload.request.EmployeeRequest;
 import com.example.demo.payload.response.AddressResponse;
 import com.example.demo.payload.response.EmployeeResponse;
 import com.example.demo.service.EmployeeService;
-import org.hibernate.validator.internal.constraintvalidators.bv.notempty.NotEmptyValidatorForArraysOfBoolean;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service("file")
 public class EmployeeRepositorySaveToFileSystem implements EmployeeService {
-    private static final File FILE = new File("employees.txt");
+    private static final File FILE = new File("src/main/java/com/example/demo/file/employees.txt");
 
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE, true))) {
-            bufferedWriter.write(employeeRequest.firstName());
-            bufferedWriter.write(employeeRequest.lastName());
-            bufferedWriter.write(employeeRequest.phoneNumber());
-            bufferedWriter.write(employeeRequest.email());
-            bufferedWriter.write(employeeRequest.image());
-            bufferedWriter.write(employeeRequest.addressRequest().toString());
+            bufferedWriter.write(employeeRequest.firstName() + "\n");
+            bufferedWriter.write(employeeRequest.lastName() + "\n");
+            bufferedWriter.write(employeeRequest.phoneNumber() + "\n");
+            bufferedWriter.write(employeeRequest.email() + "\n");
+            bufferedWriter.write(employeeRequest.image() + "\n");
+            bufferedWriter.write(employeeRequest.addressRequest().toString() + "\n");
 
             return new EmployeeResponse (
                     employeeRequest.firstName(),

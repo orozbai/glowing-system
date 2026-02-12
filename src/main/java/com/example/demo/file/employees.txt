@@ -1,0 +1,18 @@
+Ali
+Aliev
++996700123456
+ali@mail.com
+img.png
+AddressRequest[city=Bishkek, street=Chui, houseNumber=10, apartment=5]
+Ali
+Aliev
++996700123456
+ali@mail.com
+img.png
+AddressRequest[city=Bishkek, street=Chui, houseNumber=10, apartment=5]
+Ali
+Aliev
++996700123456
+ali@mail.com
+img.png
+AddressRequest[city=Bishkek, street=Chui, houseNumber=10, apartment=5]
