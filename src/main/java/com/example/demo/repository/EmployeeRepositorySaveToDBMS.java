@@ -25,8 +25,7 @@ public class EmployeeRepositorySaveToDBMS implements EmployeeService {
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
 
-        try {
-                    if (employeeJpaRepository.existsByEmailEmployee(employeeRequest.email())) {
+        if (employeeJpaRepository.existsByEmailEmployee(employeeRequest.email())) {
             throw new RuntimeException("Employee with email " + employeeRequest.email() + " already exists");
         }
 
@@ -35,14 +34,10 @@ public class EmployeeRepositorySaveToDBMS implements EmployeeService {
             throw new RuntimeException("Employee with phone number " + employeeRequest.phoneNumber() + " already exists");
         }
 
-            Employee employee = employeeMapper.mapToEmployee(employeeRequest);
-            employeeJpaRepository.save(employee);
+        Employee employee = employeeMapper.mapToEmployee(employeeRequest);
+        employeeJpaRepository.save(employee);
 
-            return employeeMapper.mapToResponse(employee);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
+        return employeeMapper.mapToResponse(employee);
     }
 
     @Override
