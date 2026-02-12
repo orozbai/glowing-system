@@ -13,14 +13,16 @@ import com.example.demo.payload.response.EmployeeResponse;
 public class EmployeeMapper {
 
     public Address mapToAddress(AddressRequest addressRequest) {
-        if (addressRequest == null) return null;
-
-        Address address = new Address();
-        address.setCity(addressRequest.city());
-        address.setStreet(addressRequest.street());
-        address.setApartment(addressRequest.apartment());
-        address.setHouseNumber(addressRequest.houseNumber());
-        return address;
+        if (addressRequest != null) {
+            Address address = new Address();
+            address.setCity(addressRequest.city());
+            address.setStreet(addressRequest.street());
+            address.setApartment(addressRequest.apartment());
+            address.setHouseNumber(addressRequest.houseNumber());
+            return address;
+        } else {
+            return null;
+        }
     }
 
     public Employee mapToEmployee(EmployeeRequest employeeRequest) {
@@ -42,7 +44,9 @@ public class EmployeeMapper {
                 address.getHouseNumber(),
                 address.getApartment()
             );
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     public EmployeeResponse mapToResponse(Employee employee) {
