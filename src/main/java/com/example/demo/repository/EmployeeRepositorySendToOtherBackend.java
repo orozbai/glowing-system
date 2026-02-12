@@ -42,46 +42,23 @@ public class EmployeeRepositorySendToOtherBackend implements EmployeeService {
 
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
+
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Employee employee = employeeMapper.mapToEmployee(employeeRequest);
+        HttpEntity<EmployeeRequest> entity =
+                new HttpEntity<>(employeeRequest, headers);
 
-        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-
-        if (employeeRequest.image() != null && !employeeRequest.image().isBlank()) {
-            File imageFile = new File(employeeRequest.image());
-            if (imageFile.exists()) {
-                body.add("photoEmployee", new FileSystemResource(imageFile));
-            }
-        }
-
-        HttpHeaders jsonHeaders = new HttpHeaders();
-        jsonHeaders.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<Employee> employeePart = new HttpEntity<>(employee, jsonHeaders);
-        body.add("employee", employeePart);
-
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-
-        ResponseEntity<Employee> response = restTemplate.exchange(
+        ResponseEntity<EmployeeResponse> response = restTemplate.exchange(
                 url,
                 HttpMethod.POST,
-                requestEntity,
-                Employee.class
+                entity,
+                EmployeeResponse.class
         );
 
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new RuntimeException("Remote backend rejected employee save: " + response.getStatusCode());
-        }
-
-        Employee savedEmployee = Optional.ofNullable(response.getBody())
-                .orElseThrow(() -> new RuntimeException(
-                        "Remote backend returned empty body after successful save"
-                ));
-
-        return employeeMapper.mapToResponse(savedEmployee);
+        return response.getBody();
     }
+
 
     @Override
     public List<EmployeeResponse> findAllEmployees() {
