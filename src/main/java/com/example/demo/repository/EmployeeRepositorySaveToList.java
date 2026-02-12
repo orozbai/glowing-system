@@ -35,6 +35,10 @@ public class EmployeeRepositorySaveToList implements EmployeeService {
 
     @Override
     public List<EmployeeResponse> findAllEmployees() {
-        return List.of();
+        List<EmployeeResponse> responseList = new ArrayList<>();
+        for (Employee employee : employeeList) {
+            responseList.add(employeeMapper.mapToResponse(employee));
+        }
+        return responseList;
     }
 }
