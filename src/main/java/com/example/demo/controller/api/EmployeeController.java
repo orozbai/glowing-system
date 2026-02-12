@@ -87,6 +87,7 @@ public final class EmployeeController {
             EmployeeResponse response = service.save(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>((HttpHeaders) null,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }

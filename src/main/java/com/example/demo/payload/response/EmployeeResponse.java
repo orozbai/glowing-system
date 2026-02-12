@@ -9,8 +9,8 @@ import jakarta.validation.constraints.Size;
 public record EmployeeResponse(
         String firstName,
         String lastName,
-        String phoneNumber,
         String email,
+        String phoneNumber,
         String image, // this is photo object and change type
         AddressResponse addressResponse
 ) {

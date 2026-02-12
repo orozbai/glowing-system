@@ -36,16 +36,16 @@ public class Employee {
     @Column(name = "last_name_employee", nullable = false, length = 100)
     private String lastNameEmployee;
     /**
-     * Employee phone number.
-     */
-    @Column(name = "phone_number_employee", nullable = false, length = 15)
-    private String phoneNumberEmployee;
-    /**
      * Employee email address.
      * <p>Must be unique.</p>
      */
     @Column(name = "email", nullable = false, unique = true, length = 255)
     private String emailEmployee;
+    /**
+     * Employee phone number.
+     */
+    @Column(name = "phone_number_employee", nullable = false, length = 15)
+    private String phoneNumberEmployee;
     /**
      * URL or Base64 representation of the employee image.
      */
