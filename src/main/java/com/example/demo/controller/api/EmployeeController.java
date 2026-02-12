@@ -7,7 +7,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -37,8 +42,22 @@ public final class EmployeeController {
         this.services = employeeService;
     }
 
+    /**
+     * Returns a list of employees from the specified data source.
+     *
+     * <p>The data source is selected dynamically based on the {@code source}
+     * request parameter. The corresponding
+     * {@link EmployeeService} implementation
+     * is used to retrieve employee data.</p>
+     *
+     * @param source the identifier of the data source used to fetch employees
+     * @return {@link ResponseEntity} containing
+     * a list of {@link EmployeeResponse}
+     * objects and HTTP status {@code 200 OK}
+     */
     @GetMapping
-    public ResponseEntity<List<EmployeeResponse>> getEmployees(@RequestParam String source) {
+    public ResponseEntity<List<EmployeeResponse>> getEmployees(
+            @RequestParam final String source) {
         EmployeeService service = services.get(source);
         List<EmployeeResponse> employees = service.findAllEmployees();
         return ResponseEntity.status(HttpStatus.OK).body(employees);
@@ -48,7 +67,7 @@ public final class EmployeeController {
      * Creates a new employee.
      *
      * @param request employee data
-     * @param saveTo service key, defining the save method
+     * @param saveTo  service key, defining the save method
      * @return the created employee or {@code 400 Bad Request},
      * if the save service is not found
      */
