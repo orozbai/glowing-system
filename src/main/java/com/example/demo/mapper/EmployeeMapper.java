@@ -16,8 +16,8 @@ public interface EmployeeMapper {
     // Request to Entity mapping
     @Mapping(source = "firstName", target = "firstNameEmployee")
     @Mapping(source = "lastName", target = "lastNameEmployee")
-    @Mapping(source = "email", target = "emailEmployee")
     @Mapping(source = "phoneNumber", target = "phoneNumberEmployee")
+    @Mapping(source = "email", target = "emailEmployee")
     @Mapping(source = "image", target = "imageEmployee")
     @Mapping(source = "addressRequest", target = "address")
     Employee mapToEmployee(EmployeeRequest employeeRequest);
@@ -27,8 +27,8 @@ public interface EmployeeMapper {
     // Entity to Response mapping
     @Mapping(source = "firstNameEmployee", target = "firstName")
     @Mapping(source = "lastNameEmployee", target = "lastName")
-    @Mapping(source = "emailEmployee", target = "email")
     @Mapping(source = "phoneNumberEmployee", target = "phoneNumber")
+    @Mapping(source = "emailEmployee", target = "email")
     @Mapping(source = "imageEmployee", target = "image")
     @Mapping(source = "address", target = "addressResponse")
     EmployeeResponse mapToResponse(Employee employee);
