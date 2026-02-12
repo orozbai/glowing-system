@@ -5,7 +5,6 @@ import com.example.demo.mapper.EmployeeMapper;
 import com.example.demo.payload.request.EmployeeRequest;
 import com.example.demo.payload.response.EmployeeResponse;
 import com.example.demo.service.EmployeeService;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +41,7 @@ public class EmployeeRepositorySaveToDBMS implements EmployeeService {
 
     @Override
     public List<EmployeeResponse> findAllEmployees() {
-        return List.of();
+        List<Employee> employees = employeeJpaRepository.findAll();
+        return employeeMapper.mapToResponseList(employees);
     }
 }

@@ -1,62 +1,40 @@
 package com.example.demo.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.example.demo.entity.Address;
 import com.example.demo.entity.Employee;
 import com.example.demo.payload.request.AddressRequest;
 import com.example.demo.payload.request.EmployeeRequest;
 import com.example.demo.payload.response.AddressResponse;
 import com.example.demo.payload.response.EmployeeResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import java.util.List;
 
-@Component
-public class EmployeeMapper {
+@Mapper(componentModel = "spring")
+public interface EmployeeMapper {
 
-    public Address mapToAddress(AddressRequest addressRequest) {
-        if (addressRequest != null) {
-            Address address = new Address();
-            address.setCity(addressRequest.city());
-            address.setStreet(addressRequest.street());
-            address.setApartment(addressRequest.apartment());
-            address.setHouseNumber(addressRequest.houseNumber());
-            return address;
-        } else {
-            return null;
-        }
-    }
+    // Request to Entity mapping
+    @Mapping(source = "firstName", target = "firstNameEmployee")
+    @Mapping(source = "lastName", target = "lastNameEmployee")
+    @Mapping(source = "email", target = "emailEmployee")
+    @Mapping(source = "phoneNumber", target = "phoneNumberEmployee")
+    @Mapping(source = "image", target = "imageEmployee")
+    @Mapping(source = "addressRequest", target = "address")
+    Employee mapToEmployee(EmployeeRequest employeeRequest);
 
-    public Employee mapToEmployee(EmployeeRequest employeeRequest) {
-        Employee employee = new Employee();
-        employee.setFirstNameEmployee(employeeRequest.firstName());
-        employee.setLastNameEmployee(employeeRequest.lastName());
-        employee.setEmailEmployee(employeeRequest.email());
-        employee.setPhoneNumberEmployee(employeeRequest.phoneNumber());
-        employee.setImageEmployee(employeeRequest.image());
-        employee.setAddress(mapToAddress(employeeRequest.addressRequest()));
-        return employee;
-    }
+    Address mapToAddress(AddressRequest addressRequest);
 
-    public AddressResponse mapToAddressResponse(Address address) {
-        if (address != null) {
-            return new AddressResponse(
-                address.getCity(),
-                address.getStreet(),
-                address.getHouseNumber(),
-                address.getApartment()
-            );
-        } else {
-            return null;
-        }
-    }
+    // Entity to Response mapping
+    @Mapping(source = "firstNameEmployee", target = "firstName")
+    @Mapping(source = "lastNameEmployee", target = "lastName")
+    @Mapping(source = "emailEmployee", target = "email")
+    @Mapping(source = "phoneNumberEmployee", target = "phoneNumber")
+    @Mapping(source = "imageEmployee", target = "image")
+    @Mapping(source = "address", target = "addressResponse")
+    EmployeeResponse mapToResponse(Employee employee);
 
-    public EmployeeResponse mapToResponse(Employee employee) {
-        return new EmployeeResponse(
-            employee.getFirstNameEmployee(),
-            employee.getLastNameEmployee(),
-            employee.getEmailEmployee(),
-            employee.getPhoneNumberEmployee(),
-            employee.getImageEmployee(),
-            mapToAddressResponse(employee.getAddress())
-        );
-    }
+    AddressResponse mapToAddressResponse(Address address);
+
+    // mapToResponse for each element
+    List<EmployeeResponse> mapToResponseList(List<Employee> employees);
 }
