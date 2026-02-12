@@ -23,4 +23,5 @@ public record EmployeeRequest(
         @Valid
         AddressRequest addressRequest
 ) {
+
 }

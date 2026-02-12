@@ -7,12 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +35,13 @@ public final class EmployeeController {
     public EmployeeController(
             final Map<String, EmployeeService> employeeService) {
         this.services = employeeService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<EmployeeResponse>> getEmployees(@RequestParam String source) {
+        EmployeeService service = services.get(source);
+        List<EmployeeResponse> employees = service.findAllEmployees();
+        return ResponseEntity.status(HttpStatus.OK).body(employees);
     }
 
     /**

@@ -7,6 +7,8 @@ import com.example.demo.payload.response.EmployeeResponse;
 import com.example.demo.service.EmployeeService;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("db")
 public class EmployeeRepositorySaveToDBMS implements EmployeeService {
 
@@ -35,5 +37,10 @@ public class EmployeeRepositorySaveToDBMS implements EmployeeService {
         Employee savedEmployee = employeeJpaRepository.save(employee);
 
         return employeeMapper.mapToResponse(savedEmployee);
+    }
+
+    @Override
+    public List<EmployeeResponse> findAllEmployees() {
+        return List.of();
     }
 }
