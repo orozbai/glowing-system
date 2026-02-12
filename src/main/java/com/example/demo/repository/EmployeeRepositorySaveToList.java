@@ -14,32 +14,31 @@ import java.util.UUID;
 @Service("list")
 public class EmployeeRepositorySaveToList implements EmployeeService {
 
-    private final List<Employee> employeeList = new ArrayList<>();
+    private final List<Employee> employeeList;
     private final EmployeeMapper employeeMapper;
 
     public EmployeeRepositorySaveToList(EmployeeMapper employeeMapper) {
         this.employeeMapper = employeeMapper;
+        this.employeeList = new ArrayList<>();
     }
 
 
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
 
-        for (Employee emp : employeeList) {
-            if (emp.getEmailEmployee().equals(employeeRequest.email())) {
+        for (Employee employee : employeeList) {
+            if (employee.getEmailEmployee().equals(employeeRequest.email())) {
                 throw new RuntimeException("Employee with email " + employeeRequest.email() + " already exists");
             }
         }
 
-        for (Employee emp : employeeList) {
-            if (emp.getPhoneNumberEmployee().equals(employeeRequest.phoneNumber())) {
+        for (Employee employee : employeeList) {
+            if (employee.getPhoneNumberEmployee().equals(employeeRequest.phoneNumber())) {
                 throw new RuntimeException("Employee with phone number " + employeeRequest.phoneNumber() + " already exists");
             }
         }
 
         Employee employee = employeeMapper.mapToEmployee(employeeRequest);
-        employee.setIdEmployee(UUID.randomUUID());
-
         employeeList.add(employee);
 
         return employeeMapper.mapToResponse(employee);
