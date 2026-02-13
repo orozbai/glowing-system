@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("db")
+@Service("database")
 public class EmployeeRepositorySaveToDBMS implements EmployeeService {
 
     private final EmployeeJpaRepository employeeJpaRepository;
