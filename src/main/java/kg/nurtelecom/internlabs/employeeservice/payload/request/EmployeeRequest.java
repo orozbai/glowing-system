@@ -16,7 +16,6 @@ public record EmployeeRequest(
         @Email(message = "The email is not a valid email.")
         String email,
         @NotBlank(message = "The phoneNumber is required.")
-        @Size(min = 13, max = 13, message = "The phoneNumber must be like +996XXXXXXXXX.")
         @Pattern(regexp = "^\\+?[1-9]{13,13}$", message = "The phoneNumber must be like +996XXXXXXXXX.")
         String phoneNumber,
         String image, // this is photo object and change type
