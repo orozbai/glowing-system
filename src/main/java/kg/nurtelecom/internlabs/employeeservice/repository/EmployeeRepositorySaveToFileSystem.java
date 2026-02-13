@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service("file")
 public class EmployeeRepositorySaveToFileSystem implements EmployeeService {
-    private static final File FILE = new File("src/main/java/com/example/demo/file/employees.txt");
+    private static final File FILE = new File("src/main/java/kg/nurtelecom/internlabs/employeeservice/file/employees.txt");
 
     @Override
     public EmployeeResponse save(EmployeeRequest employeeRequest) {
